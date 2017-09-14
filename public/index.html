@@ -30,7 +30,7 @@
                     <div class="center">
                         <h1>
                             <i class="ace-icon fa fa-leaf green"></i>
-                            <span class="blue" id="id-text2">天软知识库管理系统</span>
+                            <span class="blue" id="id-text2">车辆调度管理系统</span>
                         </h1>
                         <h4 class="blue" id="id-company-text">&copy; 中环系统工程有限公司</h4>
                     </div>
@@ -105,16 +105,14 @@
                 toastr.error("密码不能为空");
                 return false;
             }
-            $.post(BASE_URL+"user/login.form", {
+            $.post(BASE_URL + "user/login.form", {
                 "username": username,
                 "password": password
             }, function (response) {
                 var id;
                 if (response) {
-                    response=JSON.stringify(response);
-                    console.log("response"+response)
+                    response = JSON.stringify(response);
                     window.sessionStorage.setItem("currUser", response);
-//                    response = $.parseJSON(response);
                     toastr.info("登录成功,正在跳转到首页");
                     id = window.setTimeout(function () {
                         window.clearTimeout(id);
