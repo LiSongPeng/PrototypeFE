@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建用户</title>
+    <style type="text/css">
+        .basic-grey {
+            margin-left:auto;
+            margin-right:auto;
+            max-width: 500px;
+            background: #F7F7F7;
+            padding: 25px 15px 25px 10px;
+            font: 12px Georgia, "Times New Roman", Times, serif;
+            color: #888;
+            text-shadow: 1px 1px 1px #FFF;
+            border:1px solid #E4E4E4;
+        }
+        .basic-grey h1 {
+            font-size: 25px;
+            padding: 0px 0px 10px 40px;
+            display: block;
+            border-bottom:1px solid #E4E4E4;
+            margin: -10px -15px 30px -10px;;
+            color: #888;
+        }
+        .basic-grey h1>span {
+            display: block;
+            font-size: 11px;
+        }
+        .basic-grey label {
+            display: block;
+            margin: 0px;
+        }
+        .basic-grey label>span {
+            float: left;
+            width: 20%;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            color: #888;
+        }
+        .basic-grey input[type="text"],
+        .basic-grey input[type="password"],
+        .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+            border: 1px solid #DADADA;
+            color: #888;
+            height: 30px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            outline: 0 none;
+            padding: 3px 3px 3px 5px;
+            width: 70%;
+            font-size: 12px;
+            line-height:15px;
+            box-shadow: inset 0px 1px 4px #ECECEC;
+            -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+            -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+        }
+        .basic-grey textarea{
+            padding: 5px 3px 3px 5px;
+        }
+        .basic-grey select {
+            background: #FFF  no-repeat right;
+            background: #FFF  no-repeat right;
+            appearance:none;
+            -webkit-appearance:none;
+            -moz-appearance: none;
+            text-indent: 0.01px;
+            text-overflow: '';
+            width: 70%;
+            height: 35px;
+            line-height: 25px;
+        }
+        .basic-grey textarea{
+            height:100px;
+        }
+        .basic-grey .button {
+            background: #E27575;
+            border: none;
+            padding: 10px 25px 10px 25px;
+            color: #FFF;
+            box-shadow: 1px 1px 5px #B6B6B6;
+            border-radius: 3px;
+            text-shadow: 1px 1px 1px #9E3F3F;
+            cursor: pointer;
+        }
+        .basic-grey .button:hover {
+            background: #CF7A7A
+        }
+        .form-group>small.help-block{
+            padding-left: 100px;
+        }
+    </style>
+</head>
+<body ng-app="userAdd">
+
+
+<div class="container basic-grey" >
+    <div class="row">
+    <div class="col-sm-12">
+
+    <form class="required-validate form-horizontal" id="userAddForm" ng-controller="userAddCtrl">
+
+        <h1 ng-model="title"></h1>
+        <div class="form-group">
+            <label>
+                <span>用户名 :</span>
+            </label>
+            <input class="form-control " id="uName" type="text" ng-model="user.uName" name="uName" placeholder="用户名"/>
+        </div>
+        <div class="form-group">
+            <label>
+                <span>密码 :</span>
+            </label>
+            <input class="form-control" id="uPassword" type="password" ng-model="user.uPassword" name="uPassword" placeholder="填写密码" data-bv-notempty/>
+        </div>
+        <div class="form-group">
+            <label>
+                <span>确认密码 :</span>
+            </label>
+            <input class="form-control" type="password" name="confirmPassword" ng-model="user.confirmPassword" placeholder="确认密码" data-bv-notempty/>
+        </div>
+        <div class="form-group">
+            <label>
+                <span>用户描述 :</span>
+            </label>
+            <!--<textarea id="kAnswer" name="kAnswer" placeholder="填写知识解答"></textarea>-->
+            <input class="form-control" id="uDescription"  type="text" ng-model="user.uDescription" name="uDescription" />
+        </div>
+
+        <div class="pull-right" style="margin-right: 50px">
+            <input type="reset" class="button" id="reset" value="重置" />
+            <span>&nbsp;&nbsp;</span>
+            <input type="submit" class="button" id="submit" ng-click="submitAdd()" value="提交" />
+        </div>
+    </form>
+    </div>
+
+    </div>
+</div>
+<script>
+    (function($) {
+        //自定义表单验证规则
+        $.fn.bootstrapValidator.validators = {
+            confirm_pass : {
+                validate: function(validator, $field, options) {
+                    return $("#uPassword").val() === $field.val();
+                }
+            },
+            size_valid:{
+                validate: function (validator,$field,options) {
+                    var len=$field.val().length;
+                    if(len<options.minLen){
+                        return false;
+                    }
+                    if(len>options.maxLen){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }
+    };
+    }(window.jQuery));
+    $(function() {
+        // validate form
+        var tform = $("#userAddForm");
+        tform.bootstrapValidator({
+            submitButtons: null,
+            fields:{
+                uName:{
+                    enabled:true,
+                    message:'输入不合法',
+                    container: null,
+                    // 定义每个验证规则
+                    validators: {
+                        notEmpty: {message: '用户名不能为空'},
+                        size_valid: {minLen:6,maxLen:50,message: '用户名长度在6-50之间'}
+                    }
+                },
+                uPassword:{
+                    enabled:true,
+                    message:'输入不合法',
+                    validators:{
+                        notEmpty: {message: '密码不能为空'},
+                        size_valid: {minLen:6,maxLen:50,message: '密码长度在6-50之间'}
+                    }
+                },
+                confirmPassword:{
+                    enabled:true,
+                    message:'输入不合法',
+                    validators:{
+                        confirm_pass: {message: '两次输入密码不相等'}
+                    }
+                },
+                uDescription:{
+                    enabled:true,
+                    message:'输入不合法',
+                    validators:{
+                        size_valid: {minLen:0,maxLen:200,message: '描述长度不能超过200'}
+
+                    }
+                }
+            }
+        });
+        // 修复bootstrap validator重复向服务端提交bug
+        tform.on('success.form.bv', function(e) {
+            // Prevent form submission
+            e.preventDefault();
+        });
+
+    });
+</script>
+</body>
+</html>
