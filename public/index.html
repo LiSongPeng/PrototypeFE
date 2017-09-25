@@ -105,16 +105,14 @@
                 toastr.error("密码不能为空");
                 return false;
             }
-            $.post(BASE_URL+"user/login.form", {
+            $.post(BASE_URL + "user/login.form", {
                 "username": username,
                 "password": password
             }, function (response) {
                 var id;
                 if (response) {
-                    response=JSON.stringify(response);
-                    console.log("response"+response)
+                    response = JSON.stringify(response);
                     window.sessionStorage.setItem("currUser", response);
-//                    response = $.parseJSON(response);
                     toastr.info("登录成功,正在跳转到首页");
                     id = window.setTimeout(function () {
                         window.clearTimeout(id);
