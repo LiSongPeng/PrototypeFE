@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EB5obNfdt8NXlRi4NyAsVsganppYga9v"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/electricFence.css">
+    <title>Title</title>
+
+</head>
+<body ng-app="eleFence" ng-controller="fenceCtrl">
+    <div class="left-container" >
+        <div class="left-top-container">
+            <div class="ctrlbar-heading">
+                <div>电子围栏管理</div>
+                <div class="toggle-icon" ng-click="ctrlbarClps()"><i class="glyphicon glyphicon-chevron-up"></i></div>
+            </div>
+        </div>
+        <div class="left-bot-container">
+            <div class="left-bot-title">
+                围栏列表
+            </div>
+            <div class="panel-group" id="fenceListGroup" >
+                <div class="panel" ng-repeat="fence in fenceList" >
+                        <div id="{{fence.id}}" class="panel-heading fence-item-heading">
+                            <div class="btn btn-default"
+                               data-parent="#fenceListGroup" ng-click="slctFence($event)" >
+                                <span style="display: inline-block;width: 80px;overflow-x: hidden"><span class="glyphicon glyphicon-move"></span>{{fence.name}}</span>
+                                <span style="display: inline-block;height: 100%;overflow-x: hidden; font-size: 13px">监控对象:{{(fence.monitor=="#allentity")?"全部对象":fence.monitor}}</span>
+                            </div>
+                            <div class="side-ctrl-btn-group ">
+                                <div class="btn-flip-container" style="height: 50px">
+                                    <div class="btn-flipperY" style="height: 50px">
+                                        <div class="front" style="height: 50px">
+                                            <a class="btn" ng-click="editFence($event)" style="left:11px;color:#ffffff;background-color:#418ca5"><span class="glyphicon glyphicon-cog"></span></a>
+                                            <a class="btn" style="left:45px;color:#ffffff;background-color:#c60000"><span class="glyphicon glyphicon-remove"></span></a>
+                                        </div>
+                                        <div class="back" style="height: 50px">
+                                            <a class="btn" ng-click="commitEditFence($event)" style="left:11px;color:#ffffff;background-color:#00a552"><span class="glyphicon glyphicon-ok"></span></a>
+                                            <a class="btn" ng-click="cancelEditFence($event)" style="left:45px;color:#ffffff;background-color:#cccccc"><span class="glyphicon glyphicon-repeat"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div id="{{'collapse'+fence.id}}" class="collapse panel-body">-->
+                            <!--<div class="fence-info">-->
+                                <!--监控对象:{{(fence.monitor=="#allentity")?"全部对象":fence.monitor}}-->
+                            <!--</div>-->
+                            <!--<div class="fence-button btn-flip-container">-->
+                                <!--<div class="btn-flipper">-->
+                                    <!--<div class="front btn-group">-->
+                                        <!--<a class="btn btn-danger">删除</a>-->
+                                        <!--<a class="btn btn-primary" ng-click="editFence($event)">修改</a>-->
+                                    <!--</div>-->
+                                    <!--<div class="back btn-group">-->
+                                        <!--<a class="btn btn-info"  ng-click="cancelEditFence($event)">取消</a>-->
+                                        <!--<a class="btn btn-success" ng-click="commitEditFence($event)">完成</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                </div>
+            </div>
+            <div class="new-fence-btn ">
+                <span>+</span>
+                <div class="draw-btn-container btn-flip-container">
+                    <div class="btn-flipper">
+                        <div id="draw-type-btn-group" class="btn-group front">
+                            <a draw-type="rectangle" ng-click="drawFence($event)" type="button" class="btn  draw-toggle">矩形</a>
+                            <a draw-type="polygon" ng-click="drawFence($event)" type="button" class="btn  draw-toggle">多边形</a>
+                            <a draw-type="circle" ng-click="drawFence($event)" type="button" class="btn  draw-toggle">圆形</a>
+                        </div>
+                        <div id="draw-status-btn-group" class="btn-group back">
+                            <a id="draw-cancel" ng-click="drawCancel($event)"  type="button" class="btn ">取消</a>
+                            <a id="draw-edit" ng-click="drawEdit($event)" type="button" class="btn ">编辑</a>
+                            <a id="draw-submit" ng-click="drawSubmit($event)" type="button" class="btn ">提交</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-container" id="map-container" ></div>
+    <script src="/javascripts/res_js/electricFence.js"></script>
+</body>
+</html>

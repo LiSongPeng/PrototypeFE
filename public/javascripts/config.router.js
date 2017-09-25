@@ -80,5 +80,14 @@ app.config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider,Modul
                 }
             }
         })
+        .state("数据字典",{
+            url:"/embed/syst/dataDictionary.html",
+            templateUrl:"embed/syst/dataDictionary.html",
+            resolve:{
+                deps:function ($ocLazyLoad) {
+                    return $ocLazyLoad.load(["res_dataDict"])
+                }
+            }
+        })
 
 });

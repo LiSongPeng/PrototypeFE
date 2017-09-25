@@ -8,7 +8,7 @@ var indexapp = angular.module('indexapp', ['mainRouter', 'globalconfig']);
 //     $httpProvider.defaults.headers.common = { 'Current-UserId' : currUid.id }
 // });
 indexapp.controller('navController', ['$scope', function ($scope) {
-    $scope.currUser = JSON.parse(window.sessionStorage.getItem('currUser'));
+    // $scope.currUser = JSON.parse(window.sessionStorage.getItem('currUser'));
     $scope.quit = function () {
         window.sessionStorage.removeItem("currUser");
         window.location.href = "index.html";

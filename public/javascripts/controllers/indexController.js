@@ -1,25 +1,38 @@
 function mainController($scope,$http,$rootScope) {
     $scope.resList=[];
 //				从服务器获取json权限数据
-
     $scope.currUser=window.sessionStorage.getItem("currUser");
     $scope.$on('getUserRes',function () {
+        //从服务器获取用户资源列表
+        // $http({
+        //     method: "POST",
+        //     url: BASE_URL + "resource/getUserRes.form",
+        //     headers: {
+        //         'Content-Type': "application/x-www-form-urlencoded"  //angularjs设置文件上传的content-type修改方式
+        //     }
+        // }).then(function (response) {
+        //     $scope.resList=response.data;
+        //     $scope.$broadcast('refreshResTree',$scope.resList);
+        // },function (response) {
+        //     if (response.status===401){
+        //         toastr.warning("未登录无法获取导航列表");
+        //     }else {
+        //         toastr.warning("无法获取到导航资源列表,错误代码"+response.status);
+        //     }
+        // });
+
+        // 测试用静态资源json文件
         $http({
-            method: "POST",
-            url: BASE_URL + "resource/getUserRes.form",
-            headers: {
-                'Content-Type': "application/x-www-form-urlencoded"  //angularjs设置文件上传的content-type修改方式
-            }
+            url:"/tsconfig.json"
         }).then(function (response) {
             $scope.resList=response.data;
             $scope.$broadcast('refreshResTree',$scope.resList);
+            toastr.info("获取静态资源json成功");
         },function (response) {
-            if (response.status===401){
-                toastr.warning("未登录无法获取导航列表");
-            }else {
-                toastr.warning("无法获取到导航资源列表,错误代码"+response.status);
-            }
-        });
+
+        })
+
+
     });
     $scope.$emit('getUserRes');
 
