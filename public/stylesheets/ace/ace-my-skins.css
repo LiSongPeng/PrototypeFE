@@ -282,20 +282,25 @@
     border: 1px solid #CCCCCC;
     border-radius: 3px;
 }
-.myAceSkin .ui-jqgrid .ui-jqgrid-pager .ui-pager-control{
+.myAceSkin .ui-jqgrid .ui-pg-table.ui-common-table.ui-pager-table{
+    width: 100%;
+    table-layout: fixed;
     height: 100%;
 }
-.myAceSkin .ui-jqgrid .ui-jqgrid-pager{
-    height: 45px;
-}
-.myAceSkin .fm-button{
-    height: auto;
-}
-.myAceSkin #grid-table_cb{
-    text-align: center !important;
-    vertical-align: middle !important;
-}
-.myAceSkin .ui-jqgrid .ui-jqgrid-htable th div{
-    padding-bottom: 3px;
-    padding-top: 7px;
-}
+/*.myAceSkin .ui-jqgrid .ui-jqgrid-pager .ui-pager-control{*/
+    /*height: 100%;*/
+/*}*/
+/*.myAceSkin .ui-jqgrid .ui-jqgrid-pager{*/
+    /*height: 45px;*/
+/*}*/
+/*.myAceSkin .fm-button{*/
+    /*height: auto;*/
+/*}*/
+/*.myAceSkin #grid-table_cb{*/
+    /*text-align: center !important;*/
+    /*vertical-align: middle !important;*/
+/*}*/
+/*.myAceSkin .ui-jqgrid .ui-jqgrid-htable th div{*/
+    /*padding-bottom: 3px;*/
+    /*padding-top: 7px;*/
+/*}*/
